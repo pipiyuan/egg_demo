@@ -1,23 +1,39 @@
 import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg';
 
 export default (appInfo: EggAppInfo) => {
-  const config = {} as PowerPartial<EggAppConfig>;
+    const config = {} as PowerPartial<EggAppConfig>;
 
-  // override config from framework / plugin
-  // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1563264903682_9741';
+    // override config from framework / plugin
+    // use for cookie sign key, should change to your own and keep security
+    config.keys = appInfo.name + '_1563264903682_9741';
 
-  // add your egg config in here
-  config.middleware = [];
+    // add your egg config in here
+    config.middleware = [];
 
-  // add your special config in here
-  const bizConfig = {
-    sourceUrl: `https://github.com/eggjs/examples/tree/master/${appInfo.name}`,
-  };
+    // add your special config in here
 
-  // the return config will combines to EggAppConfig
-  return {
-    ...config,
-    ...bizConfig,
-  };
+    const userConfig = {
+        // myAppName: 'egg',
+        sequelize: {
+            database: 'egg-sequelize-test',
+        },
+        logger: {
+            outputJSON: true,
+        },
+        // redis: {
+        //     Redis: require('ioredis'), // customize ioredis version, only set when you needed
+        //     client: {
+        //         port: 6379, // Redis port
+        //         host: '120.77.81.108', // Redis host
+        //         password: 'auth',
+        //         db: 0,
+        //     },
+        // }
+    };
+
+    // the return config will combines to EggAppConfig
+    return {
+        ...config,
+        ...userConfig,
+    };
 };
